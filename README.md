@@ -138,3 +138,4 @@ let {navBarInfo}=$props()
 * If the current environment affects your coding journey, move somewhere greener. Touch grass.
 * Share your coding process with someone it will motivate you to do more
 
+*test
