@@ -18,7 +18,7 @@ try {
 <div class="h-screen justify-center items-center flex">
 <form onsubmit= {handleSubmit} class= "bg-gradient-to-br from-[#7d1b1f] to-red-700
 flex-center flex-col w-[75%] rounded-2xl outline-2 outline-white shadow-2xl shadow-cyan-800 p-2  md:w-1/3 ">
-<div class="text-white m-2 font-semibold text-center">Pleae enter your admin login details below</div>
+<div class="text-white m-2 font-semibold text-center">Enter you Email and password</div>
  <div>
 <label for ="email" class="text-white">Email:</label>
 <input id = "email"

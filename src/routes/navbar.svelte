@@ -45,8 +45,8 @@ let {navBarInfo}=$props()
     </div>
 <!--Mobile version-->
 <div class="flex justify-end items-center bg-gradient-to-br from-[#7d1b1f] to-red-800 sticky top-0 z-10 h-12 md:hidden">
-  <img src="/mainlogo.png"alt="Tui na" class="w-[15%] h-12 bg-gradient-to-br from-[#7d1b1f] to-red-800 absolute left-0 top-0 z-10 border-3
-    border-black text-2xl  text-white text-center" onclick={()=>{goto(`/`)}}/>
+  <img src="/mainlogo.png"alt="Tui na" class="w-[15%] h-12 bg-gradient-to-br from-[#7d1b1f] to-red-800 absolute left-0 top-0 z-10 border-2
+    border-white  text-white text-center" onclick={()=>{goto(`/`)}}/>
 <div class="m-2 w-10 h-8 flex flex-col justify-between cursor-pointer "  onclick={(event)=>{toggleOpen(event)}}>
   <span class="block h-1 bg-white rounded"></span>
   <span class="block h-1 bg-white rounded"></span>
@@ -58,8 +58,8 @@ let {navBarInfo}=$props()
   class={`fixed transition-[right] z-11 duration-500 ease-in-out ${open ? 'right-0' : '-right-1/2'} md:hidden`}>
         <div class="flex flex-row text-left font-semibold" onclick={toggleClose}>
 <div class="w-6 h-6 mt-5 relative cursor-pointer -right-40">
-  <span class="absolute inset-0 w-full h-1 bg-amber-400 rotate-45 origin-center"></span>
-  <span class="absolute inset-0 w-full h-1 bg-amber-400 -rotate-45 origin-center"></span>
+  <span class="absolute inset-0 w-full h-1 bg-white rotate-45 origin-center"></span>
+  <span class="absolute inset-0 w-full h-1 bg-white -rotate-45 origin-center"></span>
 </div>
         </div>
         {#if $loginStatus===false}

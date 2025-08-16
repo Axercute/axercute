@@ -4,9 +4,10 @@
 	let { children } = $props();
   const navBarInfo = [
   {display:"Home", path:""},
-  {display:"Booking", path:"booking"},
-  {display:"Our Pricing", path:"pricing"},
-  {display:"Contact Us", path:"contactUs"},
+  {display:"About Us",path:"aboutUs"},
+  {display:"Top Up", path:"topUp"},
+  {display:"Cash Out", path:"pricing"},
+  {display:"Assistance", path:"contactUs"},
   ]
 
   const adminBarInfo = [
