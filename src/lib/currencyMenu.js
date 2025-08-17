@@ -2,22 +2,22 @@ export const currencyMenu = [
   {
     image: "/currency/osrs.jpg",
     text: "OSRS Gold",
-    description: "A specialized moxibustion program using heat therapy to boost immunity and vitality."
+    link: "topUp/OSRS"
   },
   {
     image: "/currency/rs3.jpg",
     text: "Runescape 3 Gold",
-    description: "A specialized moxibustion program using heat therapy to boost immunity and vitality."
+    link: "topUp/RS3"
   },
     {
     image: "/currency/fortnite.jpg",
     text: "Fortnite VBucks",
-    description: "A specialized moxibustion program using heat therapy to boost immunity and vitality."
+    link: "topUp/Fortnite"
   },
      {
     image: "/currency/robux.jpg",
     text: "Robux",
-    description: "A specialized moxibustion program using heat therapy to boost immunity and vitality."
+    link: "topUp/Roblox"
   }
 ];
 
