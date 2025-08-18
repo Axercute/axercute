@@ -1,33 +1,34 @@
 <script>
-  export let value;
-  let open = false;
-  export let selected;
-  export let options = [];
   import {onMount} from "svelte"
-  // onMount(()=>{window.addEventListener("click",console.log("test"))
-  // return () => {
-  // window.removeEventListener('click',console.log("test"));
-  // };
-  // })
-</script>
+  let {selected, options,value=$bindable(),...props} = $props();
+  let open = $state(false);
+$effect(() => {
+  if (!selected || !options.length) return;
+  const match = options.find(element => element.link.includes(selected));
+  if (match && value?.link !== match.link) {
+    value = match; // only updates if truly different
+  }
+});
+
+  $effect(()=>{console.log("child current value:",value)})
+</script> 
 
 <div class="w-50 mx-auto relative">
   
-  <div class={`w-full px-4 py-2 border rounded text-center hover:cursor-pointer ${open ? `bg-amber-400`: `bg-white`}`}
+  <div class={`w-full border rounded text-center hover:cursor-pointer ${open ? `bg-amber-400`: `bg-white`}`}
     onclick={() => (open = !open)}>{selected}</div>
-
-    <div class="relative">
+    <div>
 {#if open}
   <div class="absolute w-full z-50 bg-white mt-1 shadow">
     {#each options as element}
       <div class="px-4 py-1 text-center hover:bg-amber-400 cursor-pointer"
         onclick={() => {
-          selected = element;
+          selected = element.link
           value = element;
           open = false;
         }}
       >
-        {element}
+        {element.link}
       </div>
     {/each}
   </div>
