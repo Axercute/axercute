@@ -1,4 +1,5 @@
 // src/routes/api/protected/+server.js
+import { redirect } from '@sveltejs/kit';
 export const GET = async ({ locals }) => {
     // locals.user was set in hooks.server.js after JWT verification
     if (!locals.user) {
@@ -11,3 +12,7 @@ export const GET = async ({ locals }) => {
         user: locals.user
     }), { status: 200 });
 };
+
+
+
+

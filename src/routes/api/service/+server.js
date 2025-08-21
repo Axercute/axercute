@@ -1,15 +1,13 @@
-import { startMongo } from "$lib/server/db/mongo"
-import {Service} from "$lib/server/model/service"
+// // +server.js
+// import fetch from "node-fetch";
 
-export const GET=async()=>{
-  try {
-    await startMongo();
-    console.log('🔎 Finding service...');
-    const services = await Service.find();
-    console.log('✅ Services found:', services);
-    return new Response(JSON.stringify(services), {status:201});
-  } catch (err) {
-    console.error('GET /service error:', err);
-    return new Response('Internal Server Error', { status: 500 });
-  }
-}
+// export async function GET() {
+//   const res = await fetch("https://www.coinpayments.net/index.php?cmd=checkout&id=CPJH23B3C3IETTLNTBHCK8JXED&key=0182528b69c5326ad27b8bebf525982a");
+//   const text = await res.text();
+
+//   return new Response(text, {
+//     headers: {
+//       "Content-Type": "application/javascript"
+//     }
+//   });
+// }

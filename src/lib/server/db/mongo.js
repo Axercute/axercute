@@ -19,4 +19,5 @@ export const startMongo=async()=> {
     console.error('❌ MongoDB connection error:', err.message);
     throw err;
   }
+  return mongoose
 }

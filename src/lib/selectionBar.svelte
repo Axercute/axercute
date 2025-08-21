@@ -10,7 +10,6 @@ $effect(() => {
   }
 });
 
-  $effect(()=>{console.log("child current value:",value)})
 </script> 
 
 <div class="w-50 mx-auto relative">

@@ -29,4 +29,4 @@ export const currencyMenu = [
   }
 ];
 
-export let linkUpdate = writable("");
+export let linkUpdate = writable("OSRS");

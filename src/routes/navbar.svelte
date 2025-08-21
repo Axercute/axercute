@@ -18,7 +18,7 @@ let {navBarInfo}=$props()
   <img
     src="/mainlogo.png"
     alt="Tui na"
-    class="h-12 object-contain cursor-pointer align-left absolute top-0 left-0 h-15"
+    class="h-15 object-contain cursor-pointer align-left absolute top-0 left-0 h-15"
     onclick={()=>{goto(`/`)}}/>
 <!--Desktop and Ipad-->
   <div class="hidden md:flex space-x-10 text-white font-semibold text-xl">
@@ -35,25 +35,46 @@ let {navBarInfo}=$props()
     {#each navBarInfo as { display, path }}
       <div
         class="cursor-pointer hover:text-amber-300"
-        onclick={() => goto(`/dashboard/${path}`)}
+        onclick={() => goto(`/profile/${path}`)}
       >
         {display}
       </div>
     {/each}
+
     {/if}
   </div>
+  
+  <img
+    src="/favicon.svg"
+    alt="Tui na"
+    class="h-15 object-contain cursor-pointer align-right absolute top-0 right-0 h-15"
+    onclick={()=>{goto(`/profile`)}}/>
+
     </div>
 <!--Mobile version-->
-<div class="flex justify-end items-center bg-gradient-to-br from-[#7d1b1f] to-red-800 sticky top-0 z-10 h-12 md:hidden">
-  <img src="/mainlogo.png"alt="Tui na" class="w-[15%] h-12 bg-gradient-to-br from-[#7d1b1f] to-red-800 absolute left-0 top-0 z-10 border-2
-    border-white  text-white text-center" onclick={()=>{goto(`/`)}}/>
-<div class="m-2 w-10 h-8 flex flex-col justify-between cursor-pointer "  onclick={(event)=>{toggleOpen(event)}}>
+<div class="flex items-center justify-between bg-gradient-to-br from-[#7d1b1f] to-red-800 sticky top-0 z-10 h-12 md:hidden">
+  <img 
+    src="/mainlogo.png" 
+    alt="Tui na" 
+    class="h-12 cursor-pointer border-2 border-white"
+    onclick={()=>{goto("/")}}
+  />
+
+  <!-- Right profile (but also aligned left now) -->
+  <img 
+    src="/favicon.svg" 
+    alt="Profile" 
+    class="h-12 cursor-pointer mr-auto"
+    onclick={()=>{goto("/profile")}}
+  />
+
+<div class="w-10 h-8 flex flex-col justify-between cursor-pointer mr-2"  onclick={(event)=>{toggleOpen(event)}}>
   <span class="block h-1 bg-white rounded"></span>
   <span class="block h-1 bg-white rounded"></span>
   <span class="block h-1 bg-white rounded"></span>
-</div>
 </div>
 
+</div>
 <nav                                                   
   class={`fixed transition-[right] z-11 duration-500 ease-in-out ${open ? 'right-0' : '-right-1/2'} md:hidden`}>
         <div class="flex flex-row text-left font-semibold" onclick={toggleClose}>
@@ -70,7 +91,7 @@ let {navBarInfo}=$props()
     {#each navBarInfo as { display, path }}
       <div
         class="text-right font-semibold mr-2"
-        onclick={() => goto(`/dashboard/${path}`)}
+        onclick={() => goto(`/profile/${path}`)}
       >
         {display}
       </div>

@@ -19,20 +19,22 @@
 //     throw new Error(err.message);
 //     }
 // };
+import { jwtDecode } from "jwt-decode";
 const signIn = async (formData ) => {
 try {
-    const res = await fetch(`/api/login`, {
+    const response = await fetch(`/api/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(formData),
     });
-    const data = await res.json();
+    const data = await response.json();
     if(data.err) {
         throw new Error(data.err);
     }
     if (data.jwt) {
         localStorage.setItem('token', data.jwt);
-        return JSON.parse(atob(data.jwt.split('.')[1])).payload;
+        const decoded = jwtDecode(data.jwt)
+        return decoded
     }
     throw new Error('Invalid response from server');
 } catch (err) {
