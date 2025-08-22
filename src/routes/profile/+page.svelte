@@ -52,8 +52,9 @@ let data;
 
 <div class="flex flex-col p-2">
   <div>Purchase limit this month:</div>
-<div class="bg-white border-2 border-black text-center text-black relative">$0/{data.user.purchaseLimit}
-  <div class="bg-red-500 h-full rounded text-center absolute" style="width: 100%"></div>
+<div class="flex bg-white border-2 border-black text-center text-black relative rounded-2xl z-10">
+  <div class="bg-red-500 h-full rounded-2xl text-center absolute" style="width: 50%"></div>
+  <div class="z-10 flex-center">$0/{data.user.purchaseLimit}</div>
   </div>
     {#if data.user.KYCStatus === false}
   <div class="text-white mt-3">✖ KYC Not Verified</div>
