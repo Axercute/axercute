@@ -14,7 +14,7 @@ let {navBarInfo}=$props()
   });
 </script>
 <!-- Header Bar -->
-<div class="relative hidden md:flex justify-center items-center bg-gradient-to-br from-[#7d1b1f] to-red-800 sticky top-0 z-10 h-14 px-4">
+<div class="relative hidden md:flex justify-center items-center bg-gradient-to-bl from-webpink to-webpurple sticky top-0 z-10 h-14 px-4">
   <img
     src="/mainlogo.png"
     alt="Tui na"
@@ -52,7 +52,7 @@ let {navBarInfo}=$props()
 
     </div>
 <!--Mobile version-->
-<div class="flex items-center justify-between bg-gradient-to-br from-[#7d1b1f] to-red-800 sticky top-0 z-10 h-12 md:hidden">
+<div class="flex items-center justify-between bg-gradient-to-bl from-webpink to-webpurple sticky top-0 z-10 h-12 md:hidden">
   <img 
     src="/mainlogo.png" 
     alt="Tui na" 
@@ -68,7 +68,7 @@ let {navBarInfo}=$props()
     onclick={()=>{goto("/profile")}}
   />
 
-<div class="w-10 h-8 flex flex-col justify-between cursor-pointer mr-2"  onclick={(event)=>{toggleOpen(event)}}>
+<div class="w-10 h-8 flex flex-col justify-between cursor-pointer mr-2 "  onclick={(event)=>{toggleOpen(event)}}>
   <span class="block h-1 bg-white rounded"></span>
   <span class="block h-1 bg-white rounded"></span>
   <span class="block h-1 bg-white rounded"></span>
@@ -76,7 +76,7 @@ let {navBarInfo}=$props()
 
 </div>
 <nav                                                   
-  class={`fixed transition-[right] z-11 duration-500 ease-in-out ${open ? 'right-0' : '-right-1/2'} md:hidden`}>
+  class={`fixed transition-[right] z-11 duration-500 ease-in-out ${open ? 'right-0' : '-right-1/2'} md:hidden from-webdarkpurple to-webpurple`}>
         <div class="flex flex-row text-left font-semibold" onclick={toggleClose}>
 <div class="w-6 h-6 mt-5 relative cursor-pointer -right-40">
   <span class="absolute inset-0 w-full h-1 bg-white rotate-45 origin-center"></span>
@@ -101,6 +101,3 @@ let {navBarInfo}=$props()
         <img src="/tuipic.jpg"alt="Tui na" class="w-full mr-3 hover:cursor-pointer"/>
         </div> 
     </nav>
-<style lang="postcss">
-  @reference "tailwindcss";
-</style>

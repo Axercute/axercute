@@ -7,7 +7,7 @@ const count = await User.countDocuments();
 console.log("Users in DB:", count);
     const result = await User.deleteMany(
   {},
-    { $set: { token:0} },
+    { $set: { tokens:0} },
     { strict: false } 
 );
 

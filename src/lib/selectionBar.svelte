@@ -14,7 +14,7 @@ $effect(() => {
 
 <div class="w-50 mx-auto relative">
   
-  <div class={`w-full border rounded text-center hover:cursor-pointer ${open ? `bg-amber-400`: `bg-white`}`}
+  <div class={`w-full border rounded text-center hover:cursor-pointer ${open ? `bg-webpink`: `bg-white`}`}
     onclick={() => (open = !open)}>{selected}</div>
     <div>
 {#if open}

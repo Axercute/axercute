@@ -42,9 +42,9 @@ let data;
 <img src="/favicon.svg" alt="Tui na" class="h-30 cursor-pointer border-2"/>
 </div>
 <div class="flex flex-col w-1/2 justify-center p-2">
-<div class="font-bold">{data.user.name}</div>
+<div class="font-bold">{data.user.fullName}</div>
 <div class="font-bold">Balance: ${data.user.balance}</div>
-<div class="font-bold">treasury tokens: {data.user.token}</div>
+<div class="font-bold">treasury Tokens: {data.user.tokens}</div>
 <button>Top Up</button>
 </div>
 </div>

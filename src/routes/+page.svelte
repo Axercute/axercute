@@ -24,12 +24,12 @@ let currentIndex=$state(0)
 </script>
 <div class="relative w-full h-64 md:h-100 xl:h-180">
    {#key carousel[currentIndex]} <img src={`/carousel/${carousel[currentIndex]}`} alt="Tui na" class="w-full h-full object-cover absolute" transition:fade={{ duration: 1000 }} key={carousel[currentIndex]}/>{/key}
-  <button class="absolute top-[80%] left-[50%] rounded-2xl text-white bg-red-800
-    shadow translate-x-[-50%] translate-y-[-50%] hover:bg-red-400 text-xl" onclick={()=>{goto("./topUp")}}>
+  <button class="absolute top-[80%] left-[50%] rounded-2xl text-white bg-webpink
+    shadow translate-x-[-50%] translate-y-[-50%] hover:bg-webpurple text-xl" onclick={()=>{goto("./topUp")}}>
    Top Up Now
   </button>
 </div>
-<div class="flex-center text-white bg-red-800 font-semibold">Available currencies</div>
+<div class="flex-center text-white bg-gradient-to-bl from-webpink to-webpurple font-semibold">Available currencies</div>
 <!--display flex card on treatment-->
 <div class="flex flex-row flex-wrap justify-center items-center">
 {#each currencyMenu as {image,text,link}}

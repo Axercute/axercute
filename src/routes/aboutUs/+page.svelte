@@ -1,4 +1,4 @@
-<div class="bg-red-800 font-semibold text-white m-2 rounded-2xl">
+<div class="bg-webdarkpurple font-semibold text-white m-2 rounded-2xl">
 
 <div class="flex font-semibold text-white p-2 text-2xl">Welcome to Singapore’s Game Currency & P2P Trading Hub</div>
 
@@ -6,7 +6,7 @@
 <div class="flex font-semibold text-white p-2">Dive into a secure digital marketplace built for the gaming community where your virtual items turn into real life cash</div> 
 </div>
 
-<div class="bg-red-800 font-semibold text-white m-2 rounded-2xl">
+<div class="bg-webdarkpurple  font-semibold text-white m-2 rounded-2xl">
 
 <div class="flex font-semibold text-white p-2 text-2xl">Why am I here?</div>
 
@@ -15,7 +15,7 @@
 <div class="flex font-semibold text-white p-2">Maybe you want to buy that game currency, grab that rare item you’ve been chasing, or simply connect with other gamers in Singapore who trade just like you. Whatever brought you here, this is your trusted space to trade, earn, and play smarter.</div> 
 </div>
 
-<div class="bg-red-800 font-semibold text-white m-2 rounded-2xl">
+<div class="bg-webdarkpurple  font-semibold text-white m-2 rounded-2xl">
 
 <div class="flex font-semibold text-white p-2 text-2xl">How We Set Our Rates</div>
 
@@ -26,7 +26,7 @@ We add a flat 5% service fee to every deposit and withdrawal—this covers secur
 </div>
 
 
-<div class="bg-red-800 font-semibold text-white m-2 rounded-2xl">
+<div class="bg-webdarkpurple  font-semibold text-white m-2 rounded-2xl">
 
 <div class="flex font-semibold text-white p-2 text-2xl">Why Choose Us</div>
 

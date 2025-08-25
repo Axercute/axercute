@@ -6,11 +6,12 @@ const userSchema = new mongoose.Schema({
   password: {type: String, required: true},
   jwt: {type: String},
   is_admin: {type: Boolean, default: false},
-  name: {type:String},
+  fullName: {type:String},
   balance:{type:Number,default: 10},
   tokens:{type:Number,default: 10},
   KYCStatus:{type:Boolean,default: false} ,
-  purchaseLimit:{type:Number, default: 10},
+  purchasedAmount:{type:Number,default:0},
+  purchaseLimit:{type:Number, default: 500},
 })
 
 export const User = mongoose.models.User || mongoose.model("User", userSchema);

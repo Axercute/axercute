@@ -38,7 +38,7 @@ const handleSubmit=async(event)=> {
 }
 </script>
 <div class="h-screen justify-center items-center flex">
-<form method="POST" onsubmit= {handleSubmit} class= "bg-gradient-to-br from-[#7d1b1f] to-red-700
+<form method="POST" onsubmit= {handleSubmit} class= "bg-gradient-to-br from-webdarkpurple to-webpurple
 flex-center flex-col w-[75%] rounded-2xl outline-2 outline-white shadow-2xl shadow-cyan-800 p-2  md:w-1/3 ">
 <div class=" text-xl font-semibold text-white mb-2">Pick your Game Product</div>
 <SelectionBar options={currencyMenu} selected={formFill} bind:value={selectedGame}/>

@@ -1,10 +1,9 @@
 <script>
 import { goto } from '$app/navigation';
-import { Datepicker } from 'svelte-calendar';
+import { signUp } from '$lib/authService';
 import dayjs from 'dayjs';
 let formSubmission = $state({
     fullName:"",
-    dob:new Date(),
     email:"",
     password:"",
     confirmPassword:""
@@ -18,7 +17,7 @@ const theme = {
 	};
 
 let message = $state("");
-const handleSubmit = (e) => {
+const handleSubmit = async(e) => {
 try {
   e.preventDefault()
     if(formSubmission.password.length<10){
@@ -28,16 +27,16 @@ try {
         return alert("Please make sure your password and confirm password are the same")
     }
     console.log(formSubmission)
-    // const user = await signIn(formData); 
-    // message = 'Successfully logged in';
-    // goto('/dashboard');
+    const user = await signUp(formSubmission); 
+    console.log("successfully created account")
+    goto('/profile');
     } catch (err) {
     message = err.message;
     }
 }
 </script>
 <div class="h-screen justify-center items-center flex">
-<form onsubmit= {handleSubmit} class= "bg-gradient-to-br from-[#7d1b1f] to-red-700
+<form onsubmit= {handleSubmit} class= "bg-gradient-to-br from-webdarkpurple to-webpurple
 flex-center flex-col w-[75%] rounded-2xl outline-2 outline-white shadow-2xl shadow-cyan-800 p-2  md:w-1/3 ">
 <div class="text-white m-2 font-semibold text-center">Please provide us with your personal details</div>
 
@@ -46,10 +45,6 @@ flex-center flex-col w-[75%] rounded-2xl outline-2 outline-white shadow-2xl shad
 <input id = "fullName" type="text" bind:value={formSubmission.fullName} required/>
 </div>
 
-<div class="relative" >
-<label for ="dob" class="text-white">Date of birth</label>
-  <Datepicker id="dob" bind:selected={formSubmission.dob} format="DD/MM/YYYY" {theme}></Datepicker>
-</div>
 
 <div>
 <label for ="email" class="text-white">Email</label>

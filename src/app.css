@@ -9,7 +9,9 @@ html, body {
 }
 
 @theme {
-  --color-solana1st: #00ffa3
+  --color-webpink: #FF22EC;
+  --color-webpurple: #620865;
+  --color-webdarkpurple: #42014B;
 }
 
 @utility flex-center {
@@ -41,7 +43,7 @@ html, body {
   }
 
   input {
-    @apply bg-white rounded flex mb-2 border-2 border-transparent focus:border-emerald-900 focus:outline-none focus:border-2 focus-within:bg-amber-400 font-semibold;
+    @apply bg-white rounded flex mb-2 border-2 border-transparent focus:border-emerald-900 focus:outline-none focus:border-2 focus-within:bg-webpink font-semibold;
   }
 
   nav {
