@@ -47,7 +47,7 @@ const askImage=async()=>{
   }
   console.log("update pfp completed",result)
   await goto(".")
-  await goto("/profile") //
+  await goto("/profile") 
   } 
   catch (err) {
   console.log(err);
