@@ -5,7 +5,7 @@ export const POST=async()=>{
     await startMongo();
 const count = await User.countDocuments();
 console.log("Users in DB:", count);
-    const result = await User.deleteMany(
+    const result = await User.updateMany(
   {},
     { $set: { tokens:0} },
     { strict: false } 

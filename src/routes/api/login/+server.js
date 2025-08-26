@@ -11,14 +11,14 @@ export const POST=async({request})=>{
     data.password = crypto.PBKDF2(data.password, "abc", { keySize: 8, iterations: 1000 }).toString(crypto.enc.Base64)
     console.log("user info checking...", data);
     //looks for the user using email and pw
-    const userFound = await User.findOne({ email: data.email, password: data.password }).lean()
+    const userFound = await User.findOne({ email: data.email, password: data.password })
     if (!userFound) { // not found
         return new Response("User not found")
     }
-    const payload = {...userFound};
-    // create a token
-    const token = jwt.sign(payload ,SECRET,{ expiresIn: "24h" });
-    await User.updateOne({ email: data.email }, { jwt: token });
+    const payload = {_id:userFound._id,email:userFound.email};
+    const token = jwt.sign(payload ,SECRET,{ expiresIn: "24h" })
+    await User.updateOne({ email: data.email }, { jwt: token })
+    console.log("Login success!",token)
     return new Response(JSON.stringify({message:"login success:",jwt: token})); //indicates success
   } catch (err) {
     console.error('POST /account login error:', err);

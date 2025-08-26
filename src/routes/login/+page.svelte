@@ -1,22 +1,40 @@
 <script>
-import { signIn } from '$lib/authService';
 import { goto } from '$app/navigation';
+import { jwtDecode } from 'jwt-decode';
 let email = $state("");
 let password = $state("");
 let message = $state("");
-const handleSubmit = async () => {
+const handleSubmit = async (e) => {
 try {
-    const formData = {email, password};
-    const user = await signIn(formData); 
-    message = 'Successfully logged in';
-    goto('/profile');
-    } catch (err) {
-    message = err.message;
+    e.preventDefault()
+    const formSubmission = {email:email, password:password};
+    const response = await fetch(`/api/login`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formSubmission),
+    });
+    const data = await response.json();
+    if(data.err) {
+        throw new Error(data.err);
     }
-};
+    if (data.jwt) {
+        localStorage.setItem('token', data.jwt);
+        const decoded = jwtDecode(data.jwt)
+        await goto('/profile');
+        return decoded
+    }
+    if(!data.jwt){
+    throw new Error('Invalid response from server');}
+} 
+
+catch (err) {
+    console.log(err);
+    throw new Error(err.message);
+    }
+  }
 </script>
 <div class="h-screen justify-center items-center flex">
-<form onsubmit= {handleSubmit} class= "bg-gradient-to-br from-webdarkpurple to-webpurple
+<form onsubmit= {handleSubmit} class= "bg-gradient-to-br from-webpurple to-webdarkpurple
 flex-center flex-col w-[75%] rounded-2xl outline-2 outline-white shadow-2xl shadow-cyan-800 p-2  md:w-1/3 ">
 <div class="text-white m-2 font-semibold text-center">Enter your Email and password</div>
  <div>

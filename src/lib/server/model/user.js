@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   balance:{type:Number,default: 10},
   tokens:{type:Number,default: 10},
   KYCStatus:{type:Boolean,default: false} ,
-  purchasedAmount:{type:Number,default:0},
+  purchasedAmount:{type:Number,default:250},
   purchaseLimit:{type:Number, default: 500},
 })
 

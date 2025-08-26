@@ -34,8 +34,8 @@ html, body {
 
 @layer base {
   button {
-    @apply  bg-[#7d1b1f] px-2 py-2 rounded-xl mx-1 my-1 font-semibold
-    hover:bg-red-700 cursor-pointer;
+    @apply bg-white px-2 py-2 rounded-xl mx-1 my-1 font-semibold text-black
+    hover:bg-green-400 cursor-pointer;
   }
 
   label {

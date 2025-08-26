@@ -1,6 +1,5 @@
 <script>
 import { goto } from '$app/navigation';
-import { signUp } from '$lib/authService';
 import dayjs from 'dayjs';
 let formSubmission = $state({
     fullName:"",
@@ -15,25 +14,33 @@ const theme = {
 			shadow: '0px 0px 5px rgba(0, 0, 0, 0.25)'
 		}
 	};
-
 let message = $state("");
-const handleSubmit = async(e) => {
-try {
-  e.preventDefault()
-    if(formSubmission.password.length<10){
-        return alert("Please input a string that is over length of 10")
-    }
-    if(formSubmission.password!==formSubmission.confirmPassword){
-        return alert("Please make sure your password and confirm password are the same")
-    }
-    console.log(formSubmission)
-    const user = await signUp(formSubmission); 
-    console.log("successfully created account")
-    goto('/profile');
-    } catch (err) {
-    message = err.message;
-    }
+const handleSubmit = async() => {
+try { 
+if(formSubmission.password.length<10){
+    return alert("Please input a string that is over length of 10")
 }
+if(formSubmission.password!==formSubmission.confirmPassword){
+    return alert("Please make sure your password and confirm password are the same")
+}
+const response = await fetch(`/api/login/signUp`, {
+    method: 'POST',
+    headers : {'Content-Type': 'application/json'},
+    body: JSON.stringify(formSubmission),
+})
+const data = await response.json();
+if(data.err) {
+  alert("Please enter a unique email")
+  throw new Error(err)
+}
+alert("account created! Please login")
+goto('/profile');
+} 
+catch (err) {
+    console.log(err);
+    throw new Error(err.message);
+    }
+  }
 </script>
 <div class="h-screen justify-center items-center flex">
 <form onsubmit= {handleSubmit} class= "bg-gradient-to-br from-webdarkpurple to-webpurple
