@@ -1,17 +1,14 @@
 <script>
 import { goto } from '$app/navigation';
-import { invalidateAll } from '$app/navigation';
 import { onMount } from 'svelte'
-import {loginStatus} from "$lib/loginStatus"
-import { updateProfile } from '$lib/authService';
-loginStatus.set(false)
+import {profilePicture} from "$lib/globalView"
 const logout=()=> {
 localStorage.removeItem('token');
-window.location.href = '/admin';
+window.location.href = '/';
 }
 
 let data;
-  onMount(async () => {
+  const fetchProfile = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       goto('/login');
@@ -24,13 +21,14 @@ let data;
         },
       });
       data = await response.json();
-      loginStatus.set(data.loginStatus)
+      profilePicture.set(data.user.profilePicture)
+      // console.log($profilePicture)
     } catch (error) {
-      loginStatus.set(false)
       console.error('Error fetching user:', error);
       goto('/login');
     }
-  });
+  }
+  onMount(fetchProfile)
 
 const askImage=async()=>{
   try {
@@ -46,8 +44,7 @@ const askImage=async()=>{
   throw new Error(data.err);
   }
   console.log("update pfp completed",result)
-  await goto(".")
-  await goto("/profile") 
+  fetchProfile()
   } 
   catch (err) {
   console.log(err);
@@ -61,7 +58,8 @@ const askImage=async()=>{
     <div class="lds-dual-ring"></div>
   </div>
 {:else}
-<div class="rounded-2xl flex flex-col  m-2 font-semibold bg-webpink border border-black text-white">
+<div class="rounded-2xl flex flex-col m-2 font-semibold bg-webpink border border-black text-white justify-center">
+
 <div class="flex flex-row w-full">
 <div class="flex flex-col w-1/2" onclick={askImage}>
 <img src={data.user.profilePicture} alt="invalid image" class="h-30 cursor-pointer border-2"/>
@@ -86,9 +84,10 @@ const askImage=async()=>{
     {#if data.user.KYCStatus === false}
   <div class="text-white mt-3">✖ KYC Not Verified</div>
   <button>Verify here</button>
+  <button onclick={logout}>Log Out</button>
       {:else}
   <div class="text-green-400">✅ KYC Verified</div>2
-    {/if}
+    {/if} 
 </div>
 </div>
 {/if}

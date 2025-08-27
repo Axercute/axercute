@@ -2,10 +2,12 @@
 import '../app.css';
 import Navbar from './navbar.svelte';
 let { children } = $props();
+import {loginStatus} from "$lib/globalView"
 const navBarInfo = [
 {display:"Home", path:""},
 {display:"About Us",path:"aboutUs"},
-{display:"Top Up", path:"topUp"},
+{display:"Trade", path:"trade"},
+{display:"Marketplace", path:"marketplace"},
 {display:"Assistance", path:"contactUs"},
 ]
 
@@ -14,7 +16,7 @@ const adminBarInfo = [
   { display: 'Service Management', path: 'service-management' },
   { display: 'Appointment Management', path: 'appointment' },
 ];
-import {loginStatus} from "$lib/loginStatus"
+
 let finalNav=$state("")
 $effect(()=>{
 if ($loginStatus===false) {

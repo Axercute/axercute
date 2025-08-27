@@ -1,6 +1,6 @@
 <script>
 import {goto} from "$app/navigation"
-import {loginStatus} from "$lib/loginStatus"
+import {loginStatus,profilePicture} from "$lib/globalView"
 let {navBarInfo}=$props() 
   let open = $state(true)
   const toggleOpen =(event)=>{event.stopPropagation();open=true}
@@ -45,9 +45,9 @@ let {navBarInfo}=$props()
   </div>
   
   <img
-    src="/favicon.svg"
-    alt="Tui na"
-    class="h-15 object-contain cursor-pointer align-right absolute top-0 right-0 h-15"
+    src={$profilePicture||"/favicon.svg"}
+    alt="Invalid picture"
+    class="h-14 object-contain cursor-pointer align-right absolute top-0 right-0"
     onclick={()=>{goto(`/profile`)}}/>
 
     </div>
@@ -62,7 +62,7 @@ let {navBarInfo}=$props()
 
   <!-- Right profile (but also aligned left now) -->
   <img 
-    src="/favicon.svg" 
+    src={$profilePicture||"/favicon.svg"}
     alt="Profile" 
     class="h-12 cursor-pointer mr-auto"
     onclick={()=>{goto("/profile")}}
@@ -97,7 +97,5 @@ let {navBarInfo}=$props()
       </div>
     {/each}
     {/if}
-        <div class=" bg-amber-600 m-2 text-white text-right font-semibold">Grand Opening Sale! Consultation + TuiNa + Cupping / Scraping for only $42
-        <img src="/tuipic.jpg"alt="Tui na" class="w-full mr-3 hover:cursor-pointer"/>
-        </div> 
+        <img src="https://thafd.bing.com/th/id/OIP.CO-ps-dgk9oMvd2uizNMmAHaP5?w=163&h=349&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"alt="Tui na" class="w-full mr-3 hover:cursor-pointer"/>
     </nav>
