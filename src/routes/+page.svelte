@@ -1,19 +1,30 @@
 <script>
-  import {goto} from "$app/navigation"
-  import {currencyMenu, linkUpdate} from "$lib/currencyMenu"
-  let open = $state(false)
-  let descriptionUpdate=$state("")
-  // $effect(()=>{console.log($linkUpdate)})
+    // $effect(()=>{console.log($linkUpdate)})
 //   import { onMount} from 'svelte';
 //   onMount(() => {
 //   window.addEventListener('click', toggleClose);
 //   return () => {
 //   window.removeEventListener('click', toggleClose);
 // };});
+  import {goto} from "$app/navigation"
+  import {linkUpdate} from "$lib/linkUpdate"
+  let open = $state(false)
+  let descriptionUpdate=$state("")
 import {onMount} from "svelte"
 import {fade} from "svelte/transition"
 let carousel=["picture1.jpg","picture2.jpg","picture3.jpg","picture4.jpg"]
 let currentIndex=$state(0)
+let data = $state([])
+  const fetchCurrency = async () => {
+    try {
+      const response = await fetch('/api/currency');
+      data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  }
+  onMount(fetchCurrency)
   // Automatically cycle every 10 seconds
   onMount(() => {
     const interval = setInterval(() => {
@@ -32,7 +43,7 @@ let currentIndex=$state(0)
 <div class="flex-center text-white bg-gradient-to-bl from-webpink to-webpurple font-semibold">Available currencies</div>
 <!--display flex card on treatment-->
 <div class="flex flex-row flex-wrap justify-center items-center">
-{#each currencyMenu as {image,text,link}}
+{#each data as {image,text,link}}
 <div class="relative group w-40 h-40 flex justify-center items-center text-center m-2 hover:cursor-pointer" onclick={()=>{linkUpdate.set(link);goto("./trade")}}>
 <img src = {image} alt ="digestion" class=" rounded-2xl absolute w-full h-full " />
 <div class="absolute w-full h-full rounded-2xl group-hover:bg-red-800/70"></div>

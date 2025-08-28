@@ -20,7 +20,7 @@ $effect(() => {
 {#if open}
   <div class="absolute w-full z-50 bg-white mt-1 shadow">
     {#each options as element}
-      <div class="px-4 py-1 text-center hover:bg-amber-400 cursor-pointer"
+      <div class="px-4 py-1 text-center hover:bg-webpink cursor-pointer"
         onclick={() => {
           selected = element.link
           value = element;

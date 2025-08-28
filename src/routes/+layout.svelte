@@ -7,7 +7,7 @@ const navBarInfo = [
 {display:"Home", path:""},
 {display:"About Us",path:"aboutUs"},
 {display:"Trade", path:"trade"},
-{display:"Marketplace", path:"marketplace"},
+{display:"Marketplace", path:"marketPlace"},
 {display:"Assistance", path:"contactUs"},
 ]
 
