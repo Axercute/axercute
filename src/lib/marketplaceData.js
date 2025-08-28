@@ -1,0 +1,23 @@
+export const order = [
+{
+orderId:1,
+user:"john",
+profilePicture:"https://thafd.bing.com/th/id/OIP.CtszeuyLDhSImlfF9GCutgHaHa?w=184&h=184&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3",
+purchaseLimit:500,
+currency:"OSRS",
+amount:100,
+symbol:"M",
+SGDPricing:100,
+exchangeRate:"0.2/M"
+},
+{
+orderId:2,
+user:"Jonas",
+purchaseLimit:500,
+currency:"RS3",
+amount:1,
+symbol:"B",
+SGDPricing:200,
+exchangeRate:"0.5/B"
+}
+]

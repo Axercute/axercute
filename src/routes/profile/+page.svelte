@@ -59,10 +59,10 @@ const askImage=async()=>{
   </div>
 {:else}
 <div class="rounded-2xl flex flex-col m-2 font-semibold bg-webpink border border-black text-white justify-center">
-
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <div class="flex flex-row w-full">
 <div class="flex flex-col w-1/2" onclick={askImage}>
-<img src={data.user.profilePicture} alt="invalid image" class="h-30 cursor-pointer border-2"/>
+<img src={data.user.profilePicture} alt="picIssue" class="h-30 cursor-pointer border-2"/>
 </div>
 <div class="flex flex-col w-1/2 justify-center p-2">
 <div class="font-bold">{data.user.fullName}</div>

@@ -21,6 +21,7 @@ let {navBarInfo}=$props()
     class="h-15 object-contain cursor-pointer align-left absolute top-0 left-0 h-15"
     onclick={()=>{goto(`/`)}}/>
 <!--Desktop and Ipad-->
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
   <div class="hidden md:flex space-x-10 text-white font-semibold text-xl">
     {#if $loginStatus===false}
     {#each navBarInfo as { display, path }}
@@ -60,14 +61,14 @@ let {navBarInfo}=$props()
     onclick={()=>{goto("/")}}
   />
 
-  <!-- Right profile (but also aligned left now) -->
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (image) -->
   <img 
     src={$profilePicture||"/favicon.svg"}
     alt="Profile" 
     class="h-12 cursor-pointer mr-auto"
     onclick={()=>{goto("/profile")}}
   />
-
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <div class="w-10 h-8 flex flex-col justify-between cursor-pointer mr-2 "  onclick={(event)=>{toggleOpen(event)}}>
   <span class="block h-1 bg-white rounded"></span>
   <span class="block h-1 bg-white rounded"></span>
@@ -75,6 +76,7 @@ let {navBarInfo}=$props()
 </div>
 
 </div>
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <nav                                                   
   class={`fixed transition-[right] z-11 duration-500 ease-in-out ${open ? 'right-0' : '-right-1/2'} md:hidden from-webdarkpurple to-webpurple`}>
         <div class="flex flex-row text-left font-semibold" onclick={toggleClose}>
