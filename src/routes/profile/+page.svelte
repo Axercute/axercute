@@ -16,9 +16,9 @@ let data;
     }
     try {
       const response = await fetch('/api/login/profile', {
+        method:"GET",
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        Authorization: `Bearer ${token}`,},
       });
       data = await response.json();
       profilePicture.set(data.user.profilePicture)
@@ -62,7 +62,7 @@ const askImage=async()=>{
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <div class="flex flex-row w-full">
 <div class="flex flex-col w-1/2" onclick={askImage}>
-<img src={data.user.profilePicture} alt="picIssue" class="h-30 cursor-pointer border-2"/>
+<img src={data.user.profilePicture} alt="picIssue" class="h-40 cursor-pointer border-2 xl:h-100"/>
 </div>
 <div class="flex flex-col w-1/2 justify-center p-2">
 <div class="font-bold">{data.user.fullName}</div>

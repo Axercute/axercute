@@ -1,11 +1,11 @@
 import { startMongo } from "$lib/server/db/mongo"
-import { User } from "$lib/server/model/user"
+import { Order } from "$lib/server/model/order"
 export const POST=async()=>{
   try {
     await startMongo();
-const count = await User.countDocuments();
-console.log("Users in DB:", count);
-    const result = await User.updateMany(
+const count = await Order.countDocuments();
+console.log("Orders in DB:", count);
+    const result = await Order.deleteMany(
   {},
     { $set: { tokens:0} },
     { strict: false } 

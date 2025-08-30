@@ -1,14 +1,34 @@
 <script>
 import { goto } from "$app/navigation";
 import { order } from "$lib/marketplaceData";
-const enterParams=(orderId)=>{
-  goto(`/marketPlace/${orderId}`)
+import { onMount } from "svelte";
+const enterParams=(id)=>{
+  goto(`/marketPlace/${id}`)
 }
+
+let data;
+  const fetchOrder = async () => {
+    try {
+      const response = await fetch('/api/trade');
+      data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      goto('/login');
+    }
+  }
+  onMount(fetchOrder)
+
 </script>
-{#each order as element}
+{#if !data}
+  <div class="flex justify-center items-center h-64">
+    <div class="lds-dual-ring"></div>
+  </div>
+{:else}
+{#each data as element}
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <div class="bg-webdarkpurple font-semibold text-white m-2 rounded-2xl flex flex-col hover:bg-webpink hover:cursor-pointer"
-onclick={enterParams(element.orderId)}>
+onclick={enterParams(element._id)}>
 
 <div class="flex flex-row h-32">
     
@@ -19,14 +39,14 @@ onclick={enterParams(element.orderId)}>
 <div class="flex font-bold text-amber-400 text-xl">Currency: {element.currency}</div>
 <div class="flex font-semibold text-white text-md">Amount: {element.amount}{element.symbol}</div>
 <div class="flex font-semibold text-white text-md">Total costs: ${element.SGDPricing}</div>
-<div class="flex font-semibold text-white text-md">Exchange rate: ${element.exchangeRate}</div>
+<!-- <div class="flex font-semibold text-white text-md">Exchange rate: ${element.exchangeRate}</div> -->
 </div>
 
 </div>
 
 </div>
 {/each}
-
+{/if}
 
 
 

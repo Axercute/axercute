@@ -27,8 +27,35 @@ $effect(()=>{
 })
 // $effect(()=>{console.log(buyAmount)})
 const handleSubmit=async(event)=> {
-  event.preventDefault();
-  
+  const formSubmission={
+  currency:selectedGame.link,
+  amount:buyAmount,
+  symbol:selectedGame.symbol.charAt(0),
+  SGDPricing:price.toFixed(2)
+}
+event.preventDefault();
+console.log(formSubmission)
+const token = localStorage.getItem('token');
+  if (!token) {
+    goto('/login');
+    return;
+  }
+  try{
+  const response = await fetch(`/api/trade`, {
+  method: 'POST',
+  headers: {Authorization: `Bearer ${token}`},
+  body: JSON.stringify(formSubmission),
+  });
+  const data = await response.json();
+  if(data.err) {
+  throw new Error(data.err);
+  }
+  goto("/marketPlace")
+  }
+  catch (err) {
+  console.log(err);
+  throw new Error(err.message);
+  }
 }
 </script>
 <div class="h-screen justify-center items-center flex">
