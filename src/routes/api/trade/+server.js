@@ -16,7 +16,9 @@ export const POST=async({request,locals})=>{
     }
     const data= await request.json();
     console.log('Pending Order...');
+    Number(data.SGDPricing.toFixed(2))
     if (userFound.balance < data.SGDPricing) {
+    console.log("insufficient balance!")
     return new Response(JSON.stringify({ error: "Insufficient balance" }), { status: 400 });
     }
     const userBalanceRemaining = await User.findByIdAndUpdate(userFound._id,{ $inc: { balance:-data.SGDPricing }},{ new: true })

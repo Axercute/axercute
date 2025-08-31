@@ -31,7 +31,7 @@ const handleSubmit=async(event)=> {
   currency:selectedGame.link,
   amount:buyAmount,
   symbol:selectedGame.symbol.charAt(0),
-  SGDPricing:price.toFixed(2)
+  SGDPricing:Number(price.toFixed(2))
 }
 event.preventDefault();
 console.log(formSubmission)
@@ -47,6 +47,11 @@ const token = localStorage.getItem('token');
   body: JSON.stringify(formSubmission),
   });
   const data = await response.json();
+  if(!response.ok){
+    alert("Insufficent balance!")
+    goto("/profile")
+    return
+  }
   if(data.err) {
   throw new Error(data.err);
   }

@@ -4,10 +4,10 @@ export const handle=async({ event, resolve })=> {
     let token = event.request.headers.get("Authorization")
     if (token) {
         token = token.replace("Bearer ", "");
-        console.log("Token received: ", token);
+        // console.log("Token received: ", token);
         try{
         const user = jwt.verify(token, SECRET);
-        console.log("User from token: ", user);
+        // console.log("User from token: ", user);
         event.locals.user=user
         }
         catch(error){

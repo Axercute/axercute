@@ -7,7 +7,9 @@ localStorage.removeItem('token');
 window.location.href = '/';
 }
 
-let data;
+let data=$state("")
+let formShow = $state(false)
+let profileInput = $state("")
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -32,8 +34,13 @@ let data;
 
 const askImage=async()=>{
   try {
-  const question = prompt("Key in your profile picture")
-  const formSubmission = {prompt:question,email:data.user.email}
+  if (profileInput.length>300){
+    alert("Link is too long!")
+    formShow=false
+    profileInput=""
+    return
+  }
+  const formSubmission = {prompt:profileInput,email:data.user.email}
   const response = await fetch(`/api/login/profileUpdate`, {
   method: 'POST',
   headers: {'Content-Type': 'application/json'},
@@ -45,6 +52,8 @@ const askImage=async()=>{
   }
   console.log("update pfp completed",result)
   fetchProfile()
+  formShow=false
+  profileInput=""
   } 
   catch (err) {
   console.log(err);
@@ -53,6 +62,34 @@ const askImage=async()=>{
 }
 
 </script>
+{#if formShow}
+<form onsubmit={askImage}
+  class="flex flex-col items-center justify-center absolute 
+         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+         h-45 w-80 bg-gradient-to-br from-purple-800 to-webpurple z-20 rounded-2xl text-white font-semibold p-4 border-2 border-white">
+
+  <div class="w-full text-center">
+    <label for="profileChange" class="block mb-2">
+      Please input a link to change your profile picture
+    </label>
+    <input type="text" id="profileChange" placeholder="https://thafd.bing.com/th/id/OIP.wjmWAMUiIG0lX-0asSDmCwHaEK?w=181&h=102&c=7&r=0&o=7&dpr=3&pid=1.7&rm=3" autofocus
+           class="text-center w-full text-black rounded" bind:value={profileInput}/>
+  </div>
+
+  <div class="flex w-full justify-between ">
+  <button type="submit" 
+          class="bg-white hover:bg-green-400 px-6 rounded text-webdarkpurple">
+    Submit
+  </button>
+
+    <button type="button" 
+          class="bg-white hover:bg-green-400 px-6 rounded text-webdarkpurple" onclick={formShow=false}>
+    Cancel
+  </button>
+  </div>
+</form>
+{/if}
+
 {#if !data}
   <div class="flex justify-center items-center h-64">
     <div class="lds-dual-ring"></div>
@@ -61,7 +98,7 @@ const askImage=async()=>{
 <div class="rounded-2xl flex flex-col m-2 font-semibold bg-webpink border border-black text-white justify-center">
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <div class="flex flex-row w-full">
-<div class="flex flex-col w-1/2" onclick={askImage}>
+<div class="flex flex-col w-1/2" onclick={formShow=true}>
 <img src={data.user.profilePicture} alt="picIssue" class="h-40 cursor-pointer border-2 xl:h-100"/>
 </div>
 <div class="flex flex-col w-1/2 justify-center p-2">

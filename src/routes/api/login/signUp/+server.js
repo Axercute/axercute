@@ -1,7 +1,6 @@
 import { startMongo } from "$lib/server/db/mongo"
 import { User } from "$lib/server/model/user"
 import crypto from "crypto-js";
-import { Appointment } from "$lib/server/model/appointment.js";
 import jwt from "jsonwebtoken"
 import { SECRET } from "$env/static/private";
 export const POST=async({request})=>{
