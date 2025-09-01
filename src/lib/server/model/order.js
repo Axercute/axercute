@@ -8,6 +8,7 @@ symbol: {type:String},
 SGDPricing:{type:String},
 status:{type:String, default:"open"},
 buyer:{type:String, required:true},
+seller:{type:String}
 })
 
 export const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);

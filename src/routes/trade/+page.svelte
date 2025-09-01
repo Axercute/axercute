@@ -41,7 +41,7 @@ const token = localStorage.getItem('token');
     return;
   }
   try{
-  const response = await fetch(`/api/trade`, {
+  const response = await fetch(`/api/marketPlace`, {
   method: 'POST',
   headers: {Authorization: `Bearer ${token}`},
   body: JSON.stringify(formSubmission),

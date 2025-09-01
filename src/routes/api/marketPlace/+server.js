@@ -21,7 +21,8 @@ export const POST=async({request,locals})=>{
     console.log("insufficient balance!")
     return new Response(JSON.stringify({ error: "Insufficient balance" }), { status: 400 });
     }
-    const userBalanceRemaining = await User.findByIdAndUpdate(userFound._id,{ $inc: { balance:-data.SGDPricing }},{ new: true })
+const userBalanceRemaining = await User.findByIdAndUpdate(
+  userFound._id,[{ $set: { balance: { $round: [{ $subtract: ["$balance", data.SGDPricing] }, 2]}}}],{ new: true });
     console.log("User balance remaining",userBalanceRemaining)
     const orderCreated = await Order.create({amount:data.amount,currency:data.currency,symbol:data.symbol,SGDPricing:data.SGDPricing,buyer:userFound._id})
     console.log("Order created!",orderCreated)

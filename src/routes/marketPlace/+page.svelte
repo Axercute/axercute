@@ -9,7 +9,7 @@ const enterParams=(id)=>{
 let data;
   const fetchOrder = async () => {
     try {
-      const response = await fetch('/api/trade');
+      const response = await fetch('/api/marketPlace');
       data = await response.json();
       console.log(data)
     } catch (error) {
@@ -31,15 +31,17 @@ let data;
 onclick={enterParams(element._id)}>
 
 <div class="flex flex-row h-32">
-    
+{#if element.currency==="OSRS"}  
 <img src="/currency/osrs.jpg" alt="invalidPic" class ="flex flex-col">
-
+{:else}
+<img src="/currency/rs3.jpg" alt="invalidPic" class ="flex flex-col">
+{/if}
 
 <div class="flex flex-col h-full justify-center pl-4">
 <div class="flex font-bold text-amber-400 text-xl">Currency: {element.currency}</div>
-<div class="flex font-semibold text-white text-md">Amount: {element.amount}{element.symbol}</div>
+<div class="flex font-bold text-green-500 text-xl">Amount: {element.amount}{element.symbol}</div>
 <div class="flex font-semibold text-white text-md">Total costs: ${element.SGDPricing}</div>
-<!-- <div class="flex font-semibold text-white text-md">Exchange rate: ${element.exchangeRate}</div> -->
+<div class="flex font-semibold text-white text-md">Exchange rate: ${(element.SGDPricing/element.amount).toFixed(2)}/{element.symbol}</div>
 </div>
 
 </div>
