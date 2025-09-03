@@ -2,6 +2,7 @@
 import { goto } from "$app/navigation";
 import { order } from "$lib/marketplaceData";
 import { onMount } from "svelte";
+import { profileId } from "$lib/globalView";
 const enterParams=(id)=>{
   goto(`/marketPlace/${id}`)
 }
@@ -10,7 +11,8 @@ let data=$state("")
   const fetchOrder = async () => {
     try {
       const response = await fetch('/api/marketPlace');
-      data = await response.json();
+      const dataGet = await response.json();
+      data=dataGet.filter(element=>element.buyer!==$profileId)
       // console.log(data)
     } catch (error) {
       console.error('Error fetching user:', error);

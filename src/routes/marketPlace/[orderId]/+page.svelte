@@ -1,7 +1,8 @@
 <script>
-	import { goto } from "$app/navigation";
+import { goto } from "$app/navigation";
 import { page } from "$app/state";
 import { onMount } from "svelte";
+import { profileId } from "$lib/globalView";
 const orderId=page.params.orderId
 let data;
 const fetchOrderId = async () => {
@@ -15,6 +16,29 @@ try {
 }
 }
 onMount(fetchOrderId)
+
+const buyOrderId =async()=>{
+	const token = localStorage.getItem('token');
+    if (!token) {
+      goto('/login');
+      return;
+    }
+	try{
+	const response = await fetch(`/api/marketPlace/${orderId}`, {
+	method: 'POST',
+	headers: {Authorization: `Bearer ${token}`,}
+	});
+	const result = await response.json()
+	console.log(result)
+	}
+	catch (error){
+	console.error('Error fetching user:', error);
+	alert("ensure you are logged in before taking the order")
+	goto('/profile');
+	}
+}
+
+
 </script>
 {#if !data}
 <div class="flex justify-center items-center h-64">
@@ -35,7 +59,7 @@ onMount(fetchOrderId)
 <div class="flex font-semibold text-white text-xl">Exchange rate: ${(data.order.SGDPricing/data.order.amount).toFixed(2)}/{data.order.symbol}</div>
 
 <div class="flex flex-row">
-<button>Accept Order</button>
+<button onclick={buyOrderId}>Accept Order</button>
 <button class="hover:bg-red-600" onclick={goto("/marketPlace")}>Decline Order</button>
 </div>
 

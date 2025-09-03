@@ -161,10 +161,10 @@ text-white justify-center overflow-hidden w-full md:w-150 xl:w-250">
 <!-- displaying as an array -->
 {#each result as element}
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
-<div class="bg-webdarkpurple font-semibold text-white m-2 rounded-2xl flex flex-col hover:bg-webpurple hover:cursor-pointer overflow-hidden"
+<div class="bg-webdarkpurple font-semibold text-white m-1 rounded-2xl flex flex-col hover:bg-webpurple hover:cursor-pointer overflow-hidden"
 onclick={enterParams(element._id)}>
 
-<div class="flex flex-row h-32">
+<div class="flex flex-row h-25">
 {#if element.currency==="OSRS"}  
 <img src="/currency/osrs.jpg" alt="invalidPic" class ="flex flex-col">
 {:else}
@@ -172,10 +172,10 @@ onclick={enterParams(element._id)}>
 {/if}
 
 <div class="flex flex-col h-full justify-center pl-4">
-<div class="flex font-bold text-amber-400 text-xl">Currency: {element.currency}</div>
-<div class="flex font-bold text-green-500 text-xl">Amount: {element.amount}{element.symbol}</div>
-<div class="flex font-semibold text-white text-md">Total costs: ${element.SGDPricing}</div>
-<div class="flex font-semibold text-white text-md">Exchange rate: ${(element.SGDPricing/element.amount).toFixed(2)}/{element.symbol}</div>
+<div class="flex font-bold text-amber-400 text-md">Currency: {element.currency}</div>
+<div class="flex font-bold text-green-500 text-md">Amount: {element.amount}{element.symbol}</div>
+<div class="flex font-semibold text-white text-sm">Total costs: ${element.SGDPricing}</div>
+<div class="flex font-semibold text-white text-sm">Exchange rate: ${(element.SGDPricing/element.amount).toFixed(2)}/{element.symbol}</div>
 </div>
 
 </div>
