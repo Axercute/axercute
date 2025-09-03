@@ -1,7 +1,7 @@
 <script>
 import { goto } from '$app/navigation';
 import { onMount } from 'svelte'
-import {profilePicture} from "$lib/globalView"
+import {profilePicture,profileId} from "$lib/globalView"
 const logout=()=> {
 localStorage.removeItem('token');
 window.location.href = '/';
@@ -24,6 +24,7 @@ let profileInput = $state("")
       });
       data = await response.json();
       profilePicture.set(data.user.profilePicture)
+      profileId.set(data.user._id)
       // console.log($profilePicture)
     } catch (error) {
       console.error('Error fetching user:', error);
@@ -31,6 +32,20 @@ let profileInput = $state("")
     }
   }
   onMount(fetchProfile)
+
+let result=$state("")
+  const fetchOrder = async () => {
+    try {
+      const response = await fetch('/api/marketPlace');
+      const resultGet = await response.json();
+      result=resultGet.filter(element=>element.buyer===$profileId)
+      // console.log(result)
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      goto('/login');
+    }
+  }
+  onMount(fetchOrder)
 
 const askImage=async()=>{
   try {
@@ -59,6 +74,10 @@ const askImage=async()=>{
   console.log(err);
   throw new Error(err.message);
   }
+}
+
+const enterParams=(id)=>{
+  goto(`/profile/${id}`)
 }
 
 </script>
@@ -95,11 +114,16 @@ const askImage=async()=>{
     <div class="lds-dual-ring"></div>
   </div>
 {:else}
-<div class="rounded-2xl flex flex-col m-2 font-semibold bg-webpink border border-black text-white justify-center">
+<div class="flex-center">
+
+<div class="rounded-2xl flex flex-col m-2 font-semibold bg-webpink border border-white 
+text-white justify-center overflow-hidden w-full md:w-150 xl:w-250">
+
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
+<!-- This is for flex-row flow to align side by side on PFP -->
 <div class="flex flex-row w-full">
 <div class="flex flex-col w-1/2" onclick={formShow=true}>
-<img src={data.user.profilePicture} alt="picIssue" class="h-40 cursor-pointer border-2 xl:h-100"/>
+<img src={data.user.profilePicture} alt="picIssue" class="h-50 cursor-pointer border-2 xl:h-120"/>
 </div>
 <div class="flex flex-col w-1/2 justify-center p-2">
 <div class="font-bold">{data.user.fullName}</div>
@@ -124,7 +148,44 @@ const askImage=async()=>{
   <button onclick={logout}>Log Out</button>
       {:else}
   <div class="text-green-400">✅ KYC Verified</div>2
-    {/if} 
+    {/if}
+    
+<!-- displaying orders -->
+<div>Your orders:</div>
+{#if !result}
+  <div class="flex justify-center items-center h-64">
+    <div class="lds-dual-ring"></div>
+  </div>
+{:else}
+
+<!-- displaying as an array -->
+{#each result as element}
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
+<div class="bg-webdarkpurple font-semibold text-white m-2 rounded-2xl flex flex-col hover:bg-webpurple hover:cursor-pointer overflow-hidden"
+onclick={enterParams(element._id)}>
+
+<div class="flex flex-row h-32">
+{#if element.currency==="OSRS"}  
+<img src="/currency/osrs.jpg" alt="invalidPic" class ="flex flex-col">
+{:else}
+<img src="/currency/rs3.jpg" alt="invalidPic" class ="flex flex-col">
+{/if}
+
+<div class="flex flex-col h-full justify-center pl-4">
+<div class="flex font-bold text-amber-400 text-xl">Currency: {element.currency}</div>
+<div class="flex font-bold text-green-500 text-xl">Amount: {element.amount}{element.symbol}</div>
+<div class="flex font-semibold text-white text-md">Total costs: ${element.SGDPricing}</div>
+<div class="flex font-semibold text-white text-md">Exchange rate: ${(element.SGDPricing/element.amount).toFixed(2)}/{element.symbol}</div>
+</div>
+
+</div>
+
+</div>
+{/each}
+
+{/if}
+</div>
+
 </div>
 </div>
 {/if}

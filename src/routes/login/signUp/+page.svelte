@@ -67,6 +67,10 @@ flex-center flex-col w-[75%] rounded-2xl outline-2 outline-white shadow-2xl shad
 <input id ="confirmPassword" type="password" bind:value={formSubmission.confirmPassword} required/>
 </div> 
 
+<div class="text-white m-2 font-semibold text-center">Already have an account? click 
+<a href="/login" class="text-emerald-400 underline hover:text-blue-300">here</a>  
+  to go back</div>
+
 <div>
 <button class="text-black bg-white hover:bg-green-400"type = "submit">Sign Up</button>
 </div>

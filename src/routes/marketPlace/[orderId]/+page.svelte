@@ -2,14 +2,13 @@
 	import { goto } from "$app/navigation";
 import { page } from "$app/state";
 import { onMount } from "svelte";
-console.log("hi")
 const orderId=page.params.orderId
 let data;
 const fetchOrderId = async () => {
 try {
 	const response = await fetch(`/api/marketPlace/${orderId}`);
 	data = await response.json();
-	console.log("order ID fetched",data)
+	// console.log("order ID fetched",data)
 } catch (error) {
 	console.error('Error fetching user:', error);
 	goto('/login');

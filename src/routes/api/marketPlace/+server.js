@@ -16,11 +16,11 @@ export const POST=async({request,locals})=>{
     }
     const data= await request.json();
     console.log('Pending Order...');
-    Number(data.SGDPricing.toFixed(2))
     if (userFound.balance < data.SGDPricing) {
     console.log("insufficient balance!")
     return new Response(JSON.stringify({ error: "Insufficient balance" }), { status: 400 });
     }
+    
 const userBalanceRemaining = await User.findByIdAndUpdate(
   userFound._id,[{ $set: { balance: { $round: [{ $subtract: ["$balance", data.SGDPricing] }, 2]}}}],{ new: true });
     console.log("User balance remaining",userBalanceRemaining)
@@ -39,6 +39,6 @@ const userBalanceRemaining = await User.findByIdAndUpdate(
 export const GET = async () => {
     await startMongo()
     const orderFound = await Order.find()
-    console.log("Orders found",orderFound)
+    // console.log("Orders found",orderFound)
     return new Response(JSON.stringify(orderFound), { status: 200 });
 };  

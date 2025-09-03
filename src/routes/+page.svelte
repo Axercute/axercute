@@ -19,7 +19,7 @@ let data = $state([])
     try {
       const response = await fetch('/api/currency');
       data = await response.json();
-      console.log(data)
+      // console.log(data)
     } catch (error) {
       console.error('Error fetching user:', error);
     }

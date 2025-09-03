@@ -6,12 +6,12 @@ const enterParams=(id)=>{
   goto(`/marketPlace/${id}`)
 }
 
-let data;
+let data=$state("")
   const fetchOrder = async () => {
     try {
       const response = await fetch('/api/marketPlace');
       data = await response.json();
-      console.log(data)
+      // console.log(data)
     } catch (error) {
       console.error('Error fetching user:', error);
       goto('/login');
@@ -27,7 +27,7 @@ let data;
 {:else}
 {#each data as element}
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
-<div class="bg-webdarkpurple font-semibold text-white m-2 rounded-2xl flex flex-col hover:bg-webpink hover:cursor-pointer"
+<div class="bg-webdarkpurple font-semibold text-white m-2 rounded-2xl flex flex-col hover:bg-webpink hover:cursor-pointer overflow-hidden"
 onclick={enterParams(element._id)}>
 
 <div class="flex flex-row h-32">
@@ -40,7 +40,7 @@ onclick={enterParams(element._id)}>
 <div class="flex flex-col h-full justify-center pl-4">
 <div class="flex font-bold text-amber-400 text-xl">Currency: {element.currency}</div>
 <div class="flex font-bold text-green-500 text-xl">Amount: {element.amount}{element.symbol}</div>
-<div class="flex font-semibold text-white text-md">Total costs: ${element.SGDPricing}</div>
+<div class="flex font-semibold text-white text-md">Total costs: ${Number(element.SGDPricing).toFixed(2)}</div>
 <div class="flex font-semibold text-white text-md">Exchange rate: ${(element.SGDPricing/element.amount).toFixed(2)}/{element.symbol}</div>
 </div>
 

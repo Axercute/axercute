@@ -29,7 +29,7 @@ $effect(()=>{
 const handleSubmit=async(event)=> {
   const formSubmission={
   currency:selectedGame.link,
-  amount:buyAmount,
+  amount:Number(buyAmount),
   symbol:selectedGame.symbol.charAt(0),
   SGDPricing:Number(price.toFixed(2))
 }

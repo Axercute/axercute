@@ -62,6 +62,7 @@ required
 <div class="text-white m-2 font-semibold text-center">Don't have an account yet? click 
     <a href="/login/signUp" class="text-emerald-400 underline hover:text-blue-300">here</a>  
     to sign up</div>
+    
 </form>
 </div>
 
