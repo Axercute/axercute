@@ -2,16 +2,23 @@ import { startMongo } from "$lib/server/db/mongo"
 import { Order } from "$lib/server/model/order.js";
 import { User } from "$lib/server/model/user.js";
 import { json } from "@sveltejs/kit";
-export const GET=async({params})=>{
+export const GET=async({params,locals})=>{
+      // locals.user was set in hooks.server.js after JWT verification
+    // if (!locals.user) {
+    //     return json({ error: "Unauthorized" }, { status: 401 });
+    // }
   try {
-    await startMongo();
+    await startMongo()
     const orderId = params.orderId
     console.log('🔎 Looking for order ID...');
     const order = await Order.findById(orderId)
     console.log('✅ order ID found', order);
     const buyerDetail = await User.findById(order.buyer)
     console.log("Buyer detail:",buyerDetail)
-    return json({order,buyerDetail}, {status:201});
+    const sellerDetail = await User.findById(order.seller)
+    console.log("Seller detail:",sellerDetail)
+
+    return json({order,buyerDetail,sellerDetail}, {status:201});
   } catch (err) {
     console.error('GET /orderId fetch error:', err);
     return json({message:'Internal Server Error'}, { status: 500 });
@@ -43,15 +50,6 @@ export const POST=async({locals,params})=>{
   
 
     
-// const userBalanceRemaining = await User.findByIdAndUpdate(
-//   userFound._id,[{ $set: { balance: { $round: [{ $subtract: ["$balance", data.SGDPricing] }, 2]}}}],{ new: true });
-//     console.log("User balance remaining",userBalanceRemaining)
-//     const orderCreated = await Order.create({amount:data.amount,currency:data.currency,symbol:data.symbol,SGDPricing:data.SGDPricing,buyer:userFound._id})
-//     console.log("Order created!",orderCreated)
-//     return new Response(JSON.stringify({
-//         message:"Order successfully created",
-//         orderCreated
-//     }),{status: 200});
   } catch (error) {
     console.error('POST /order creation error:', error);
     return json({message:'Internal Server Error'}, { status: 500 });

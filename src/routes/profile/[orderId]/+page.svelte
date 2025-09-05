@@ -1,28 +1,29 @@
 <script>
-	import { goto } from "$app/navigation";
+import { goto } from "$app/navigation";
 import { page } from "$app/state";
 import { onMount } from "svelte";
+import { profileId } from "$lib/globalView";
 const orderId=page.params.orderId
 let data;
 const fetchOrderId = async () => {
+const token = localStorage.getItem('token');
+if (!token) {
+  goto('/login');
+  return;
+}
 try {
-	const response = await fetch(`/api/marketPlace/${orderId}`);
+	const response = await fetch(`/api/marketPlace/${orderId}`, {method:"GET",headers: {Authorization: `Bearer ${token}`}}
+	)
 	data = await response.json();
-	// console.log("order ID fetched",data)
+  
 } catch (error) {
 	console.error('Error fetching user:', error);
 	goto('/login');
 }
 }
 onMount(fetchOrderId)
-
-  // Messages array
   let messages = [];
-
-  // Input value
   let input = "";
-
-  // Scroll container reference
   let chatContainer;
 
   // Send message
@@ -42,6 +43,10 @@ onMount(fetchOrderId)
   };
 
   onMount(() => scrollToBottom());
+    let dots = '';
+  setInterval(() => {
+    dots = dots.length < 3 ? dots + '.' : '';
+  }, 500);
 </script>
 {#if !data}
 <div class="flex justify-center items-center h-64">
@@ -49,12 +54,27 @@ onMount(fetchOrderId)
 </div>
 {:else}
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
+
 <div class="flex flex-col justify-center items-center">
+
+<!-- {#if data.sellerDetail ===null}
+one of them cmi
+{/if} -->
+{#if data.sellerDetail===null}
+<div class="flex flex-col font-bold text-white text-2xl animate-bounce mt-2">Awaiting buyer{dots}</div>
+{:else if data.sellerDetail._id===$profileId}
 <div class="w-50 h-50 rounded-full mt-5">
 <img src={data.buyerDetail.profilePicture} alt="invalidPic"  class="w-full h-full object-cover rounded-full">
 </div>
-<div class="flex flex-col font-bold text-white text-2xl">{data.buyerDetail.fullName}</div>
+<div class="flex flex-col font-bold text-white text-2xl">Order you accepted: {data.buyerDetail.fullName}</div>
 <div class="flex flex-col font-bold text-white text-2xl">Trust score: {data.buyerDetail.purchaseLimit}</div>
+{:else if data.buyerDetail._id===$profileId}
+<div class="w-50 h-50 rounded-full mt-5">
+<img src={data.sellerDetail.profilePicture} alt="invalidPic"  class="w-full h-full object-cover rounded-full">
+</div>
+<div class="flex flex-col font-bold text-white text-2xl">Seller found: {data.sellerDetail.fullName}</div>
+<div class="flex flex-col font-bold text-white text-2xl">Trust score: {data.sellerDetail.purchaseLimit}</div>
+{/if}
 
 <div class="flex font-bold text-amber-400 text-xl">Currency: {data.order.currency}</div>
 <div class="flex font-bold text-green-500 text-xl">Amount: {data.order.amount}{data.order.symbol}</div>
@@ -63,12 +83,12 @@ onMount(fetchOrderId)
 
 <div class="flex flex-row">
 <button>Bargain</button>
-<button class="hover:bg-red-600" onclick={goto("/marketPlace")}>Decline Order</button>
+<button class="hover:bg-red-600" onclick={goto("/marketPlace")}>Cancel Order</button>
 </div>
 
-<div class="flex flex-col h-[500px] w-full max-w-md border rounded-2xl shadow-lg bg-white overflow-hidden">
+<div class="flex flex-col h-[500px] w-full max-w-md border border-white rounded-2xl shadow-lg bg-white overflow-hidden">
   <!-- Messages -->
-  <div bind:this={chatContainer} class="flex-1 p-4 overflow-y-auto space-y-2 bg-gray-50">
+  <div bind:this={chatContainer} class="flex-1 p-4 overflow-y-auto space-y-2 bg-webpurple">
     {#each messages as msg, i}
       <div class={`flex ${msg.user === "You" ? "justify-end" : "justify-start"}`}>
         <div
@@ -83,7 +103,7 @@ onMount(fetchOrderId)
   </div>
 
   <!-- Input area -->
-  <form onsubmit={sendMessage} class="flex p-3 border-t bg-white">
+  <form onsubmit={sendMessage} class="flex p-3 border-t bg-webpurple">
     <input
       type="text"
       bind:value={input}
@@ -92,10 +112,7 @@ onMount(fetchOrderId)
     />
     <button
       type="submit"
-      class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
-    >
-      Send
-    </button>
+      class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">Send</button>
   </form>
 </div>
 

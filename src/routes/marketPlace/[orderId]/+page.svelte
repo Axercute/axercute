@@ -7,7 +7,8 @@ const orderId=page.params.orderId
 let data;
 const fetchOrderId = async () => {
 try {
-	const response = await fetch(`/api/marketPlace/${orderId}`);
+	const response = await fetch(`/api/marketPlace/${orderId}`, {method:"GET"}
+)
 	data = await response.json();
 	// console.log("order ID fetched",data)
 } catch (error) {
@@ -30,6 +31,7 @@ const buyOrderId =async()=>{
 	});
 	const result = await response.json()
 	console.log(result)
+	goto("/marketPlace")
 	}
 	catch (error){
 	console.error('Error fetching user:', error);

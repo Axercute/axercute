@@ -5,6 +5,7 @@ import {profilePicture,profileId} from "$lib/globalView"
 const logout=()=> {
 localStorage.removeItem('token');
 window.location.href = '/';
+profileId.set("")
 }
 
 let data=$state("")
@@ -33,13 +34,15 @@ let profileInput = $state("")
   }
   onMount(fetchProfile)
 
-let result=$state("")
+let buyOrders=$state("")
+let sellOrders = $state("")
   const fetchOrder = async () => {
     try {
       const response = await fetch('/api/marketPlace');
-      const resultGet = await response.json();
-      result=resultGet.filter(element=>element.buyer===$profileId)
-      // console.log(result)
+      const responseJson = await response.json();
+      buyOrders=responseJson.filter(element=>element.buyer===$profileId)
+      sellOrders=responseJson.filter(element=>element.seller===$profileId)
+      // console.log(buyOrders)
     } catch (error) {
       console.error('Error fetching user:', error);
       goto('/login');
@@ -150,16 +153,16 @@ text-white justify-center overflow-hidden w-full md:w-150 xl:w-250">
   <div class="text-green-400">✅ KYC Verified</div>2
     {/if}
     
-<!-- displaying orders -->
-<div>Your orders:</div>
-{#if !result}
+<!-- displaying buy orders -->
+<div>Your buy orders:</div>
+{#if !buyOrders}
   <div class="flex justify-center items-center h-64">
     <div class="lds-dual-ring"></div>
   </div>
 {:else}
 
 <!-- displaying as an array -->
-{#each result as element}
+{#each buyOrders as element}
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <div class="bg-webdarkpurple font-semibold text-white m-1 rounded-2xl flex flex-col hover:bg-webpurple hover:cursor-pointer overflow-hidden"
 onclick={enterParams(element._id)}>
@@ -184,6 +187,42 @@ onclick={enterParams(element._id)}>
 {/each}
 
 {/if}
+
+<!-- displaying sell orders -->
+<div>Your sell orders:</div>
+{#if !sellOrders}
+  <div class="flex justify-center items-center h-64">
+    <div class="lds-dual-ring"></div>
+  </div>
+{:else}
+
+<!-- displaying as an array -->
+{#each sellOrders as element}
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
+<div class="bg-webdarkpurple font-semibold text-white m-1 rounded-2xl flex flex-col hover:bg-webpurple hover:cursor-pointer overflow-hidden"
+onclick={enterParams(element._id)}>
+
+<div class="flex flex-row h-25">
+{#if element.currency==="OSRS"}  
+<img src="/currency/osrs.jpg" alt="invalidPic" class ="flex flex-col">
+{:else}
+<img src="/currency/rs3.jpg" alt="invalidPic" class ="flex flex-col">
+{/if}
+
+<div class="flex flex-col h-full justify-center pl-4">
+<div class="flex font-bold text-amber-400 text-md">Currency: {element.currency}</div>
+<div class="flex font-bold text-green-500 text-md">Amount: {element.amount}{element.symbol}</div>
+<div class="flex font-semibold text-white text-sm">Total costs: ${element.SGDPricing}</div>
+<div class="flex font-semibold text-white text-sm">Exchange rate: ${(element.SGDPricing/element.amount).toFixed(2)}/{element.symbol}</div>
+</div>
+
+</div>
+
+</div>
+{/each}
+
+{/if}
+
 </div>
 
 </div>

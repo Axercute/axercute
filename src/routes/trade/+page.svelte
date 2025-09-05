@@ -29,7 +29,7 @@ $effect(()=>{
 const handleSubmit=async(event)=> {
   const formSubmission={
   currency:selectedGame.link,
-  amount:Number(buyAmount),
+  amount:buyAmount,
   symbol:selectedGame.symbol.charAt(0),
   SGDPricing:Number(price.toFixed(2))
 }
@@ -41,6 +41,9 @@ const token = localStorage.getItem('token');
     return;
   }
   try{
+  if(isNaN(formSubmission.amount)){
+  return alert("Input only numbers for submission")
+  }
   const response = await fetch(`/api/marketPlace`, {
   method: 'POST',
   headers: {Authorization: `Bearer ${token}`},

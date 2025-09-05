@@ -12,7 +12,7 @@ let data=$state("")
     try {
       const response = await fetch('/api/marketPlace');
       const dataGet = await response.json();
-      data=dataGet.filter(element=>element.buyer!==$profileId)
+      data=dataGet.filter(element=>element.buyer!==$profileId && element.status=="open")
       // console.log(data)
     } catch (error) {
       console.error('Error fetching user:', error);
