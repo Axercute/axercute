@@ -130,7 +130,7 @@ text-white justify-center overflow-hidden w-full md:w-150 xl:w-250">
 </div>
 <div class="flex flex-col w-1/2 justify-center p-2">
 <div class="font-bold">{data.user.fullName}</div>
-<div class="font-bold">Balance: ${data.user.balance}</div>
+<div class="font-bold">Balance: ${data.user.balance.toFixed(2)}</div>
 <div class="font-bold">treasury Tokens: {data.user.tokens}</div>
 <button>Top Up</button>
 </div>
