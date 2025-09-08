@@ -36,7 +36,7 @@ let data = $state([])
 <div class="relative w-full h-64 md:h-100 xl:h-180">
    {#key carousel[currentIndex]} <img src={`/carousel/${carousel[currentIndex]}`} alt="Tui na" class="w-full h-full object-cover absolute" transition:fade={{ duration: 1000 }} key={carousel[currentIndex]}/>{/key}
   <button class="absolute top-[80%] left-[50%] rounded-2xl text-white bg-webpink
-    shadow translate-x-[-50%] translate-y-[-50%] hover:bg-webpurple text-xl" onclick={()=>{goto("./topUp")}}>
+    shadow translate-x-[-50%] translate-y-[-50%] hover:bg-webpurple text-xl" onclick={()=>{goto("./trade")}}>
    Top Up Now
   </button>
 </div>
