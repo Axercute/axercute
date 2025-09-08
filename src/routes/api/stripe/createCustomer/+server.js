@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
-import { STRIPEKEY } from '$env/static/private';
-const stripe = new Stripe(STRIPEKEY);
+import { env } from '$env/dynamic/private';
+const stripe = new Stripe(env.STRIPEKEY);
 export const POST=async()=>{
 try{
 const customer = await stripe.customers.create({

@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { STRIPEKEY } from '$env/static/private';
+// import { STRIPEKEY } from '$env/static/private';
 export const POST = async()=>{
 try{
 const product = await stripe.products.create({
