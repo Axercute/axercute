@@ -2,7 +2,7 @@ import { startMongo } from "$lib/server/db/mongo"
 import { User } from "$lib/server/model/user"
 import crypto from "crypto-js";
 import jwt from "jsonwebtoken"
-import { SECRET } from "$env/static/private";
+import { env } from '$env/dynamic/private';
 export const POST=async({request})=>{
   try {
     await startMongo();
@@ -16,7 +16,7 @@ export const POST=async({request})=>{
         return new Response("User not found")
     }
     const payload = {_id:userFound._id,email:userFound.email};
-    const token = jwt.sign(payload ,SECRET,{ expiresIn: "24h" })
+    const token = jwt.sign(payload ,env.SECRET,{ expiresIn: "24h" })
     await User.updateOne({ email: data.email }, { jwt: token })
     console.log("Login success!",token)
     return new Response(JSON.stringify({message:"login success:",jwt: token})); //indicates success

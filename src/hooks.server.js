@@ -1,4 +1,4 @@
-import { SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import jwt from "jsonwebtoken"
 export const handle=async({ event, resolve })=> {
     let token = event.request.headers.get("Authorization")
@@ -6,7 +6,7 @@ export const handle=async({ event, resolve })=> {
         token = token.replace("Bearer ", "");
         // console.log("Token received: ", token);
         try{
-        const user = jwt.verify(token, SECRET);
+        const user = jwt.verify(token, env.SECRET);
         // console.log("User from token: ", user);
         event.locals.user=user
         }
