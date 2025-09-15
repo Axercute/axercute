@@ -4,7 +4,9 @@ import { page } from "$app/state";
 import { onMount } from "svelte";
 import { profileId } from "$lib/globalView";
 const orderId=page.params.orderId
-let data;
+let data=$state("")
+let confirmation = $state(false)
+let deleteSuccess=$state(null)
 const fetchOrderId = async () => {
 const token = localStorage.getItem('token');
 if (!token) {
@@ -22,32 +24,58 @@ try {
 }
 }
 onMount(fetchOrderId)
-  let messages = [];
-  let input = "";
-  let chatContainer;
 
-  // Send message
-  const sendMessage = () => {
-    if (!input.trim()) return;
+const cancelOrder=async()=>{
+confirmation=false
+const token = localStorage.getItem('token');
+if (!token) {
+  goto('/login');
+  return;
+}
+try {
+	const response = await fetch(`/api/marketPlace/${orderId}/delete`, {method:"POST",headers: {Authorization: `Bearer ${token}`}}
+	)
+	deleteSuccess = await response.json();
+  // window.alert(`${data.amount},${data.SGDPricing}`)
 
-    messages = [...messages, { user: "You", text: input }];
-    input = "";
-    scrollToBottom();
-  };
+} catch (error) {
+	console.error('Error fetching user:', error);
+	goto('/login');
+}
+}
 
-  // Scroll to bottom
-  const scrollToBottom = () => {
-    setTimeout(() => {
-      chatContainer?.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
-    }, 50);
-  };
-
-  onMount(() => scrollToBottom());
-    let dots = '';
+   let dots = $state("")
   setInterval(() => {
-    dots = dots.length < 3 ? dots + '.' : '';
-  }, 500);
+    dots = dots.length < 3 ? dots + "." : "";
+  }, 1000);
 </script>
+
+{#if confirmation}
+<form onsubmit={cancelOrder}
+  class="flex flex-col items-center justify-center absolute 
+         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+         h-45 w-80 bg-gradient-to-br from-purple-800 to-webpurple z-20 rounded-2xl text-white font-semibold p-4 border-2 border-white">
+
+  <div class="w-full text-center flex flex-col justify-center items-center">
+    <div class="flex font-bold text-white text-lg">Please confirm if you are cancelling this order</div>
+    <div class="flex font-bold text-green-500">Order cancel: {data.order.amount}{data.order.symbol}</div>
+    <div class="flex font-bold text-amber-400">Total refund: ${data.order.SGDPricing}</div>
+  </div>
+
+  <div class="flex w-full justify-between ">
+  <button type="submit" 
+          class="bg-white hover:bg-green-400 px-6 rounded text-webdarkpurple">
+    Confirm
+  </button>
+
+    <button type="button" 
+          class="bg-white hover:bg-red-600 px-6 rounded text-webdarkpurple" onclick={confirmation=false}>
+    Cancel
+  </button>
+  </div>
+</form>
+{/if}
+
 {#if !data}
 <div class="flex justify-center items-center h-64">
 <div class="lds-dual-ring"></div>
@@ -83,42 +111,21 @@ one of them cmi
 
 <div class="flex flex-row">
 <button>Bargain</button>
-<button class="hover:bg-red-600" onclick={goto("/marketPlace")}>Cancel Order</button>
+<button class="hover:bg-red-600" onclick={confirmation=true}>Cancel Order</button>
 </div>
-
-<div class="flex flex-col h-[500px] w-full max-w-md border border-white rounded-2xl shadow-lg bg-white overflow-hidden">
-  <!-- Messages -->
-  <div bind:this={chatContainer} class="flex-1 p-4 overflow-y-auto space-y-2 bg-webpurple">
-    {#each messages as msg, i}
-      <div class={`flex ${msg.user === "You" ? "justify-end" : "justify-start"}`}>
-        <div
-          class={`p-2 rounded-xl max-w-xs break-words ${
-            msg.user === "You" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
-          }`}
-        >
-          <span class="font-semibold">{msg.user}: </span>{msg.text}
-        </div>
-      </div>
-    {/each}
-  </div>
-
-  <!-- Input area -->
-  <form onsubmit={sendMessage} class="flex p-3 border-t bg-webpurple">
-    <input
-      type="text"
-      bind:value={input}
-      placeholder="Type a message..."
-      class="flex-1 px-4 py-2 rounded-full border focus:outline-none focus:ring focus:ring-blue-300"
-    />
-    <button
-      type="submit"
-      class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">Send</button>
-  </form>
-</div>
-
 </div> 
-
-
 {/if}
 
+{#if deleteSuccess}
+<div class="flex flex-col items-center justify-center absolute 
+         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+         h-45 w-80 bg-gradient-to-br from-purple-800 to-webpurple z-20 rounded-2xl text-white font-semibold p-4 border-2 border-white">
+<div class="w-full text-center flex flex-col justify-center items-center">
+    <div class="flex font-bold text-red-600 text-lg">Delete Successful!</div>
+    <div class="flex font-bold text-green-500">Order cancel: {deleteSuccess.amount}{deleteSuccess.symbol}</div>
+    <div class="flex font-bold text-amber-400">Total refund: ${deleteSuccess.SGDPricing}</div>
+  </div>
+<button type="button" onclick={()=>{deleteSuccess=""; goto("/profile")}}>Noted</button>
+</div>
+{/if}
 

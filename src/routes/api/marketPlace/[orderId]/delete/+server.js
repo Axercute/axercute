@@ -4,7 +4,7 @@ import { User } from "$lib/server/model/user.js";
 import { json } from "@sveltejs/kit";
 
 //call is going to be api/marketPlace/orderId/delete
-export const POST=async({locals,params})=>{
+export const POST=async({params,locals})=>{
   try {
     await startMongo();
     // locals.user was set in hooks.server.js after JWT verification
@@ -21,14 +21,12 @@ export const POST=async({locals,params})=>{
     }
 
     const orderId = params.orderId
-    console.log('🔎 Looking for order ID...');
-    const order = await Order.findById(orderId)
-    console.log('✅ order ID found', order);
-    
-    const sellerFound = await Order.findByIdAndUpdate(order._id,{seller:userFound._id,status:"pending"},{new:true})
-    return json(sellerFound, { status: 200 });
-  
-
+    // const order = await Order.findById(orderId)
+    // console.log('Deleting this order', order);
+    const deletedOrder = await Order.findByIdAndDelete(orderId)
+    console.log("order is deleted",deletedOrder)
+    // const sellerFound = await Order.findByIdAndUpdate(order._id,{seller:userFound._id,status:"pending"},{new:true})
+    return json(deletedOrder, { status: 200 });
     
   } catch (error) {
     console.error('POST /order creation error:', error);
