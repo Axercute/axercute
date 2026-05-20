@@ -32,6 +32,7 @@ export const POST=async({locals,params})=>{
     if (!locals.user) {
         return json({ error: "Unauthorized" }, { status: 401 });
     }
+    
     const userFound = await User.findById(locals.user._id)
     console.log("User data fetched",userFound)
     

@@ -15,10 +15,7 @@ let {navBarInfo}=$props()
 </script>
 <!-- Header Bar -->
 <div class="relative hidden md:flex justify-center items-center bg-gradient-to-bl from-webpink to-webpurple sticky top-0 z-10 h-14 px-4">
-  <img
-    src="/mainlogo.png"
-    alt="Tui na"
-    class="h-15 object-contain cursor-pointer align-left absolute top-0 left-0 h-15"
+  <img src="/mainlogo.png" alt="Tui na" class="h-15 object-contain cursor-pointer align-left absolute top-0 left-0 h-15"
     onclick={()=>{goto(`/`)}}/>
 <!--Desktop and Ipad-->
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
