@@ -29,4 +29,4 @@ import { writable } from 'svelte/store';
 //   }
 // ];
 
-export let linkUpdate = writable("");
+export let linkUpdate = writable("Csgoempire");
