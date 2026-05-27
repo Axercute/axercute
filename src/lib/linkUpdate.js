@@ -29,4 +29,4 @@ import { writable } from 'svelte/store';
 //   }
 // ];
 
-export let linkUpdate = writable("OSRS");
+export let linkUpdate = writable("");
