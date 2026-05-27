@@ -46,8 +46,8 @@ let data = $state([])
 {#each data as {image,text,link}}
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions-->
 <div class="relative group w-40 h-40 flex justify-center items-center text-center m-2 hover:cursor-pointer" onclick={()=>{linkUpdate.set(link);goto("./trade")}}>
-<img src = {image} alt ="digestion" class=" rounded-2xl absolute w-full h-full " />
-<div class="absolute w-full h-full rounded-2xl group-hover:bg-red-800/70"></div>
+<img src = {image} alt ="currency" class=" rounded-2xl absolute w-full h-full " />
+<div class="absolute w-full h-full rounded-2xl group-hover:bg-blue-800/70"></div>
 <div class=" text-white font-semibold absolute hidden group-hover:block">{text}</div>
 </div>
 {/each}
