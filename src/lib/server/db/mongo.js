@@ -1,7 +1,7 @@
 // src/lib/server/db/mongo.js
 import mongoose from 'mongoose';
-// import { DATABASE_URL } from '$env/static/private';
-import { env } from '$env/dynamic/private';
+import { DATABASE_URL } from '$env/static/private';
+// import { env } from '$env/dynamic/private';
 let isConnected = false;
 
 export const startMongo=async()=> {
@@ -12,7 +12,8 @@ export const startMongo=async()=> {
 
   try {
     console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(env.DATABASE_URL); // No need for deprecated options
+    // await mongoose.connect(env.DATABASE_URL); // No need for deprecated options
+        await mongoose.connect(DATABASE_URL); // No need for deprecated options
     isConnected = true;
     console.log('✅ Connected to MongoDB via Mongoose');
   } catch (err) {
