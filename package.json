@@ -12,9 +12,9 @@
 		"lint": "prettier --check ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^6.0.0",
-		"@sveltejs/adapter-vercel": "^5.10.2",
-		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/adapter-auto": "^7.0.1",
+		"@sveltejs/adapter-vercel": "^6.3.3",
+		"@sveltejs/kit": "^2.61.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/forms": "^0.5.9",
 		"@tailwindcss/vite": "^4.0.0",
@@ -29,6 +29,8 @@
 		"vite": "^6.2.6"
 	},
 	"dependencies": {
+		"@better-auth/infra": "^0.2.10",
+		"better-auth": "^1.6.11",
 		"cheerio": "^1.1.2",
 		"crypto-js": "^4.2.0",
 		"dayjs": "^1.11.13",
