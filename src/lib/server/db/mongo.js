@@ -7,7 +7,7 @@ let isConnected = false;
 export const startMongo=async()=> {
   if (isConnected) {
     console.log('✅ Mongo already connected');
-    return;
+   return mongoose.connection.db
   }
 
   try {
@@ -20,5 +20,24 @@ export const startMongo=async()=> {
     console.error('❌ MongoDB connection error:', err.message);
     throw err;
   }
-  return mongoose
+   return mongoose.connection.db
 }
+
+
+
+// import { MongoClient } from "mongodb";
+// import { DATABASE_URL } from "$env/static/private";
+
+// const client = new MongoClient(DATABASE_URL);
+
+// let db;
+
+// export async function startMongo() {
+//   if (db) return db;
+
+//   await client.connect();
+//   db = client.db("your_db_name");
+
+//   console.log("✅ MongoDB Native connected");
+//   return db;
+// }
